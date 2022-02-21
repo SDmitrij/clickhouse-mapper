@@ -1,0 +1,10 @@
+mapper:
+  common:
+    debug: false
+    cache_dir: mapper-cache
+  connection:
+    host: analytics-clickhouse
+    port: 8123
+    username: default
+    password: default
+    database: analytics
