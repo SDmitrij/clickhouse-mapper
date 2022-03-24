@@ -7,7 +7,7 @@ use Psr\Container\ContainerInterface;
 use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 
 return static function(): ContainerInterface {
-    $cacheDir = __DIR__.'/var/mapper-cache';
+    $cacheDir = __DIR__. '/var/mapper-cache';
     if (!is_dir($cacheDir)) {
         mkdir($cacheDir);
     }

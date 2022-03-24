@@ -1,10 +1,7 @@
 <?php
 
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-
 namespace Mapper\Test;
 
-use Mapper\ContainerBuilder;
 use Psr\Container\ContainerInterface;
 
 trait WithContainerTrait
@@ -19,8 +16,8 @@ trait WithContainerTrait
     /**
      * @before
      */
-    public function buildContainer(): void
+    public function container(): void
     {
-        $this->container = ContainerBuilder::build();
+        $this->container = (require __DIR__.'/../config/container.php')();
     }
 }

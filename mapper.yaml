@@ -1,6 +1,4 @@
 mapper:
-    common:
-        cache_dir: var/mapper-cache
     connection:
         host: analytics-clickhouse
         port: 8123

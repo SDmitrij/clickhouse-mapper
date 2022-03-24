@@ -47,7 +47,7 @@ class LoadConfigCommand extends Command
         $this->cache->save($configItem);
     }
 
-    private function validateConfig(array $config): void
+    private static function validateConfig(array $config): void
     {
         Assert::keyExists($config, 'mapper');
         Assert::keyExists($config['mapper'], 'connection');
@@ -62,10 +62,10 @@ class LoadConfigCommand extends Command
 
     private function processYamlConfig(string $path): array
     {
-        $conf = Yaml::parseFile($path);
-        $this->validateConfig($conf);
+        $config = Yaml::parseFile($path);
+        self::validateConfig($config);
 
-        return $conf;
+        return $config;
     }
 
     private static function requiredKeys(): array
