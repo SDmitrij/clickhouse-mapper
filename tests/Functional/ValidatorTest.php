@@ -1,23 +1,17 @@
 <?php
 
-namespace Mapper\Test\Unit;
+namespace Mapper\Test\Functional;
 
 use Entity\Order;
 use Mapper\Metadata\MetadataManagerInterface;
 use Mapper\Test\WithContainerTrait;
 use Mapper\Validation\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class ValidatorTest extends TestCase
 {
     use WithContainerTrait;
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testIsValidSuccess(): void
     {
         /** @var MetadataManagerInterface $metadataManager */

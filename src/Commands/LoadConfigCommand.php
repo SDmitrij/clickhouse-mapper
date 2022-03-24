@@ -2,8 +2,8 @@
 
 namespace Mapper\Commands;
 
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
-use Symfony\Component\Cache\Adapter\PhpFilesAdapter;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,9 +14,9 @@ use Webmozart\Assert\Assert;
 
 class LoadConfigCommand extends Command
 {
-    private PhpFilesAdapter $cache;
+    private CacheItemPoolInterface $cache;
 
-    public function __construct(PhpFilesAdapter $cache)
+    public function __construct(CacheItemPoolInterface $cache)
     {
         parent::__construct();
         $this->cache = $cache;
@@ -54,11 +54,10 @@ class LoadConfigCommand extends Command
 
         $clickHouseSection = $config['mapper']['connection'];
 
-        Assert::keyExists($clickHouseSection, 'host');
-        Assert::keyExists($clickHouseSection, 'port');
-        Assert::keyExists($clickHouseSection, 'username');
-        Assert::keyExists($clickHouseSection, 'password');
-        Assert::keyExists($clickHouseSection, 'database');
+        foreach (self::requiredKeys() as $key) {
+            Assert::keyExists($clickHouseSection, $key);
+            Assert::notEmpty($clickHouseSection[$key]);
+        }
     }
 
     private function processYamlConfig(string $path): array
@@ -67,5 +66,10 @@ class LoadConfigCommand extends Command
         $this->validateConfig($conf);
 
         return $conf;
+    }
+
+    private static function requiredKeys(): array
+    {
+        return ['host', 'port', 'username', 'password', 'database'];
     }
 }

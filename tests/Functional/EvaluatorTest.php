@@ -1,8 +1,7 @@
 <?php
 
-namespace Mapper\Test\Unit;
+namespace Mapper\Test\Functional;
 
-use Exception;
 use Mapper\Evaluation\EvaluatorInterface;
 use Mapper\Evaluation\Exception\EvaluatorException;
 use Mapper\Metadata\MetadataManagerInterface;
@@ -10,18 +9,11 @@ use Mapper\Test\Builder\OrderBuilder;
 use Mapper\Test\Entity\InvalidEntityForEvaluation;
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class EvaluatorTest extends TestCase
 {
     use WithContainerTrait;
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws Exception
-     */
     public function testEvaluateSuccess(): void
     {
         foreach ((new OrderBuilder())->build() as $order) {
@@ -36,10 +28,6 @@ class EvaluatorTest extends TestCase
         }
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testEvaluatorException(): void
     {
         $invalid = new InvalidEntityForEvaluation();

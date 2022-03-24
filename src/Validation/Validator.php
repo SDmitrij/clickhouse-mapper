@@ -4,24 +4,20 @@ namespace Mapper\Validation;
 
 use Mapper\Connection\Interaction\ClickHouseInteractionInterface;
 use Mapper\Helper\StringHelper;
-use Psr\Cache\InvalidArgumentException;
-use Symfony\Contracts\Cache\CacheInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Webmozart\Assert\Assert;
 
 class Validator implements ValidatorInterface
 {
     private ClickHouseInteractionInterface $clickHouseInteraction;
-    private CacheInterface $validationCache;
+    private CacheItemPoolInterface $validationCache;
 
-    public function __construct(ClickHouseInteractionInterface $clickHouseInteraction, CacheInterface $cache)
+    public function __construct(ClickHouseInteractionInterface $clickHouseInteraction, CacheItemPoolInterface $cache)
     {
         $this->clickHouseInteraction = $clickHouseInteraction;
         $this->validationCache = $cache;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
     public function isValid(string $entityClass, array $metadata): bool
     {
         Assert::eq(
@@ -31,7 +27,7 @@ class Validator implements ValidatorInterface
         );
 
         return $this->validationCache->get(
-            strtolower(StringHelper::getClassShortName($entityClass)).'_validation', function () use ($metadata) {
+            strtolower(StringHelper::getClassShortName($entityClass)).'-validation', function () use ($metadata) {
                 $this->validate($metadata);
 
                 return true;

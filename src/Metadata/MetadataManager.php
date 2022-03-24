@@ -2,8 +2,7 @@
 
 namespace Mapper\Metadata;
 
-use Doctrine\Common\Annotations\PsrCachedReader;
-use Exception;
+use Doctrine\Common\Annotations\Reader;
 use Mapper\Annotations\CommonInfo;
 use Mapper\Annotations\CustomEvaluationRule;
 use Mapper\Annotations\EmbeddedClass;
@@ -20,31 +19,28 @@ use Mapper\Metadata\Exception\PropertyTypeException;
 use Mapper\Metadata\Visitor\CommonInfoPlain;
 use Mapper\Metadata\Visitor\MetadataVisitorInterface;
 use Mapper\Metadata\Visitor\PropertyInfoPlain;
-use Psr\Cache\InvalidArgumentException;
+use Psr\Cache\CacheItemPoolInterface;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionProperty;
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Webmozart\Assert\Assert;
 
 class MetadataManager implements MetadataManagerInterface
 {
-    private PsrCachedReader $annotationReader;
-    private CacheInterface $metadataCache;
+    private Reader $annotationReader;
+    private CacheItemPoolInterface $metadataCache;
 
     private ?array $metadata = null;
     private ?MetadataVisitorInterface $visitor = null;
     private ?string $entity = null;
 
-    public function __construct(PsrCachedReader $reader, CacheInterface $cache)
+    public function __construct(Reader $reader, CacheItemPoolInterface $cache)
     {
         $this->annotationReader = $reader;
         $this->metadataCache = $cache;
     }
 
     /**
-     * @throws InvalidArgumentException
      * @noinspection PhpUnusedParameterInspection
      */
     public function loadFor(string $entityClass): void
@@ -87,10 +83,6 @@ class MetadataManager implements MetadataManagerInterface
         return $this;
     }
 
-    /**
-     * @throws ReflectionException
-     * @throws Exception
-     */
     private function parseMetadata(string $class): array
     {
         $entity = new ReflectionClass($class);
@@ -153,10 +145,6 @@ class MetadataManager implements MetadataManagerInterface
         return $metadata;
     }
 
-    /**
-     * @throws InvalidBaseEntityAnnotationException
-     * @throws InvalidEmbeddedEntityAnnotationException
-     */
     private function validateEntityAnnotations(ReflectionClass $entity, string $entityType): void
     {
         $entityName = $entity->getName();
@@ -175,9 +163,6 @@ class MetadataManager implements MetadataManagerInterface
         }
     }
 
-    /**
-     * @throws Exception
-     */
     private function isNullable(ReflectionProperty $property): bool
     {
         $nullable = $this->annotationReader->getPropertyAnnotation($property, Nullable::class);

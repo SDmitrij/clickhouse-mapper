@@ -1,28 +1,20 @@
 <?php
 
-namespace Mapper\Test\Unit;
+namespace Mapper\Test\Functional;
 
 use DateTime;
 use Entity\Order;
-use Exception;
 use Mapper\Entity\EntityManagerInterface;
 use Mapper\Entity\Exception\EntityAlreadyAttachedException;
 use Mapper\Test\Builder\OrderBuilder;
 use Mapper\Test\Builder\StatusBuilder;
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class EntityManagerTest extends TestCase
 {
     use WithContainerTrait;
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws Exception
-     */
     public function testAttachSuccess(): void
     {
         /** @var EntityManagerInterface $entityManager */
@@ -38,10 +30,6 @@ class EntityManagerTest extends TestCase
         $this->assertCount(1000, $buffer[Order::class]['values']);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testEntityAlreadyAttachedException(): void
     {
         /** @var EntityManagerInterface $entityManager */
@@ -71,11 +59,6 @@ class EntityManagerTest extends TestCase
         );
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws Exception
-     */
     public function testReleaseSuccess(): void
     {
         /** @var EntityManagerInterface $entityManager */

@@ -1,20 +1,19 @@
 version: '3.5'
-services:
-  mapper-php:
-    container_name: mapper-php
-    build: ./docker/php
-    networks:
-      - analytics
-    volumes:
-      - ./:/var/www
-      - composer:/root/.composer/cache
-    external_links:
-      - analytics-clickhouse
-volumes:
-  composer:
 
+services:
+    mapper-php:
+        container_name: mapper-php
+        build:
+            context: docker
+            dockerfile: php-cli/Dockerfile
+        networks:
+          - analytics
+        volumes:
+          - ./:/mapper
+        external_links:
+          - analytics-clickhouse
 networks:
-  analytics:
-    external: true
-    name: analytics
-    driver: bridge
+    analytics:
+        external: true
+        name: analytics
+        driver: bridge

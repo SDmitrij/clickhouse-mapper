@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapper\Test\Unit;
+namespace Mapper\Test\Functional;
 
 use Entity\Order;
 use InvalidArgumentException;
@@ -21,17 +21,11 @@ use Mapper\Test\Entity\InvalidEntityWithoutAnnotations;
 use Mapper\Test\Entity\InvalidEntityWithPropertyThatHasPropertyColumnAndEmbeddedPropertyAnnotation;
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class MetadataManagerTest extends TestCase
 {
     use WithContainerTrait;
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testParseMetadataSuccess(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -51,10 +45,6 @@ class MetadataManagerTest extends TestCase
         $this->assertNotEmpty($metadata['properties']);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testInvalidBaseEntityAnnotationException(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -67,10 +57,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor($class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testInvalidAnnotationsCombinationException(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -83,10 +69,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor($class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testExceptionOnParseMetadataOfEntityWithoutCommonInfoAnnotation(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -99,10 +81,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor($class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testExceptionOnLoadMetadataForUnExistedClass(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -112,10 +90,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor('Entity\History');
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testInvalidEmbeddedEntityAnnotationException(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -125,10 +99,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor(InvalidEntityThatReferenceToInvalidEmbedded::class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testExceptionOnPropertyWithInvalidEvaluationRule(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -138,10 +108,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor(EntityWithPropertyMarkedWithInvalidEvaluationRuleAnnotation::class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testNullableAnnotationException(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -151,10 +117,6 @@ class MetadataManagerTest extends TestCase
         $metadataManager->loadFor(EntityWithNullablePropertyWithoutDefaultValue::class);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testMetadataVisitorPropertyInfoPlain(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
@@ -166,10 +128,6 @@ class MetadataManagerTest extends TestCase
         $this->assertInstanceOf(PropertyInfoPlain::class, $propertyInfoPlain);
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function testMetadataVisitorCommonInfoPlain(): void
     {
         /** @var MetadataManagerInterface $metadataManager */
