@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapper\Test\Functional;
+namespace Mapper\Test\Unit;
 
 use DateTime;
 use Entity\Order;
@@ -11,6 +11,9 @@ use Mapper\Test\Builder\StatusBuilder;
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Mapper\Entity\EntityManager
+ */
 class EntityManagerTest extends TestCase
 {
     use WithContainerTrait;

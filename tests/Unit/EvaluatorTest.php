@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapper\Test\Functional;
+namespace Mapper\Test\Unit;
 
 use Mapper\Evaluation\EvaluatorInterface;
 use Mapper\Evaluation\Exception\EvaluatorException;
@@ -10,6 +10,9 @@ use Mapper\Test\Entity\InvalidEntityForEvaluation;
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Mapper\Evaluation\Evaluator
+ */
 class EvaluatorTest extends TestCase
 {
     use WithContainerTrait;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapper\Test\Functional;
+namespace Mapper\Test\Unit;
 
 use Entity\Order;
 use InvalidArgumentException;
@@ -22,6 +22,9 @@ use Mapper\Test\Entity\InvalidEntityWithPropertyThatHasPropertyColumnAndEmbedded
 use Mapper\Test\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Mapper\Metadata\MetadataManager
+ */
 class MetadataManagerTest extends TestCase
 {
     use WithContainerTrait;

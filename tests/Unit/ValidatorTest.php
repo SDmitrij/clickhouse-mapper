@@ -1,6 +1,6 @@
 <?php
 
-namespace Mapper\Test\Functional;
+namespace Mapper\Test\Unit;
 
 use Entity\Order;
 use Mapper\Metadata\MetadataManagerInterface;
@@ -8,6 +8,9 @@ use Mapper\Test\WithContainerTrait;
 use Mapper\Validation\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Mapper\Validation\Validator
+ */
 class ValidatorTest extends TestCase
 {
     use WithContainerTrait;
