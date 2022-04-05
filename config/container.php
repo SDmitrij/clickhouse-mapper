@@ -1,5 +1,7 @@
 <?php
 
+require (__DIR__. '/../utils/autoload-file-searcher.php')();
+
 use DI\ContainerBuilder;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\PsrCachedReader;

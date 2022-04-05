@@ -1,10 +1,6 @@
 <?php
 
-/**
- * @return string
- * @throws RuntimeException
- */
-function getAutoloadFile(): string
+return static function (): string
 {
     $possibleFiles = [
         dirname(__DIR__).'/../../autoload.php',
@@ -25,4 +21,4 @@ function getAutoloadFile(): string
     }
 
     return $file;
-}
+};
